@@ -27,7 +27,8 @@ const lists = [
     desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
   },
 ];
-const Carousel = ({ rtl = true }) => {
+
+const Scroller = ({ rtl = false }) => {
   const [mouseDownState, setMouseDownState] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -36,7 +37,7 @@ const Carousel = ({ rtl = true }) => {
 
   useEffect(() => {
     const slider = containerRef.current;
-
+    // console.log(childRef.current);
     const startDragging = (e) => {
       setMouseDownState(true);
       setStartX(e.pageX);
@@ -53,9 +54,9 @@ const Carousel = ({ rtl = true }) => {
         return;
       }
       const x = e.pageX;
-      const scroll = x - startX;
+      const scroll = (x - startX) ;
       slider.scrollLeft = scrollLeft - scroll;
-      // console.log("move", scroll);
+        // console.log("move", scroll);
     };
 
     // Add the event listeners
@@ -110,4 +111,4 @@ const Carousel = ({ rtl = true }) => {
   );
 };
 
-export default Carousel;
+export default Scroller;
