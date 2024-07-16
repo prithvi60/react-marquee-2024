@@ -7,10 +7,20 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      animation: {
+        vertical_carousel: "marquee_v 20s linear infinite",
+        horizontal_carousel: "marquee_h 20s linear infinite",
+        rtl_carousel: "marquee_h 20s linear infinite reverse",
+      },
+      keyframes: {
+        marquee_v: {
+          from: { transform: "translateY(0%)" },
+          to: { transform: "translateY(-100%)" },
+        },
+        marquee_h: {
+          from: { transform: "translateX(0%)" },
+          to: { transform: "translateX(calc(-100% - 15.75px))" },
+        }
       },
     },
   },
