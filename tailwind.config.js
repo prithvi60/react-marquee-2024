@@ -19,8 +19,8 @@ module.exports = {
         },
         marquee_h: {
           from: { transform: "translateX(0%)" },
-          to: { transform: "translateX(calc(-100% - 15.75px))" },
-        }
+          to: { transform: "translateX(-100%)" },
+        },
       },
     },
   },

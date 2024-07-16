@@ -27,30 +27,37 @@ const Carousel = ({ rtl = false, elements = lists, autofill = true }) => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const containerRef = useRef();
-  const childRef = useRef();
 
   useEffect(() => {
     const slider = containerRef.current;
-
+    const width = slider.scrollWidth;
+    // const scrollPos = slider.scrollLeft;
     const startDragging = (e) => {
       setMouseDownState(true);
       setStartX(e.pageX);
       setScrollLeft(slider.scrollLeft);
     };
 
+    // console.log(startX);
     const stopDragging = (e) => {
       setMouseDownState(false);
     };
+
+    // console.log({ scrollLeft, width });
 
     const move = (e) => {
       e.preventDefault();
       if (!mouseDownState) {
         return;
       }
-      const x = e.pageX;
-      const scroll = (x - startX) * 8;
+      const x = e.pageX; // container returns the X (horizontal) coordinate
+      const scroll = (x - startX) * 8; // to scroll fast smooth effect will get, when we multiple the getting value
       slider.scrollLeft = scrollLeft - scroll;
-      // console.log("move", scroll);
+      if (scrollLeft >= width) {
+        setScrollLeft(0); // Reset scroll to the beginning
+      } else if (scrollLeft < 0) {
+        setScrollLeft(width); // Reset scroll to the end
+      }
     };
 
     // Add the event listeners
@@ -79,7 +86,6 @@ const Carousel = ({ rtl = false, elements = lists, autofill = true }) => {
           className={`flex items-center gap-3.5 select-none group-hover:paused ${
             rtl ? "animate-rtl_carousel" : "animate-horizontal_carousel"
           }`}
-          ref={childRef}
         >
           {duplicates.map((list, idx) => (
             <Card key={idx} list={list} />
@@ -90,7 +96,6 @@ const Carousel = ({ rtl = false, elements = lists, autofill = true }) => {
             rtl ? "animate-rtl_carousel" : "animate-horizontal_carousel"
           }`}
           aria-hidden="true"
-          ref={childRef}
         >
           {duplicates.map((list, idx) => (
             <Card key={`hidden-${idx}`} list={list} />
