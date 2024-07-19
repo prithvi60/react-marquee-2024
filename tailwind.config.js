@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       animation: {
         vertical_carousel: "marquee_v 20s linear infinite",
-        horizontal_carousel: "marquee_h 20s linear infinite",
+        horizontal_carousel: "marquee_h 25s linear infinite",
         rtl_carousel: "marquee_h 20s linear infinite reverse",
       },
       keyframes: {
