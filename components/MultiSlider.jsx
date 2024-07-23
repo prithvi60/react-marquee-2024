@@ -1,6 +1,5 @@
 "use client";
 import React, {
-  useEffect,
   useRef,
   useState,
   useMemo,
@@ -71,13 +70,11 @@ const MultiSlider = ({ rtl = false, elements = lists, autofill = true }) => {
     const containerWidth = containerRef.current.clientWidth;
     const scrollbarWidth = containerRef.current.scrollWidth;
     const totalCardWidth = duplicates.length * cardWidth;
-    // console.log({ totalCardWidth, scrollbarWidth });
-    // const newRightEnd =
-    //   containerRef.current.scrollWidth -
-    //   containerRef.current.clientWidth +
-    //   containerRef.current.scrollLeft;
-    // console.log("right end value",newRightEnd);
-    // console.log({ containerWidth, scrollbarWidth, totalCardWidth });
+    console.log(scrollbarWidth - containerWidth);
+    // console.log(
+    //   scrollbarWidth - (containerWidth + containerRef.current.scrollLeft)
+    // );
+
     if (containerRef.current.scrollLeft === 0) {
       console.log("left end");
       containerRef.current.scrollLeft = scrollbarWidth - containerWidth;
@@ -86,7 +83,9 @@ const MultiSlider = ({ rtl = false, elements = lists, autofill = true }) => {
       scrollbarWidth - containerWidth
     ) {
       console.log("right end");
-      containerRef.current.scrollLeft = scrollbarWidth - containerRef.current.offsetWidth;
+      // containerRef.current.scrollLeft =
+      //   scrollbarWidth -
+      //   (containerWidth + containerRef.current.scrollLeft) + 10;
     }
     // if (scrollX >= containerWidth - window.innerWidth) {
     //   containerRef.current.scrollLeft = 0;
@@ -99,8 +98,10 @@ const MultiSlider = ({ rtl = false, elements = lists, autofill = true }) => {
   return (
     <section className="flex items-center justify-center w-full h-screen scroll-smooth">
       <div
-        className={`flex w-full p-5 gap-3.5 border-2 group snap-x snap-mandatory overflow-x-auto custom ${
-          mouseDownState ? "cursor-grabbing scroll-smooth" : "cursor-pointer "
+        className={`flex w-full p-5 gap-3.5 border-2 group snap-x snap-mandatory overflow-x-auto custom transition-all duration-300 ease-linear ${
+          mouseDownState
+            ? "cursor-grabbing scroll-smooth"
+            : "cursor-pointer scroll-auto"
         }`}
         onMouseDown={(e) => startDragging(e)}
         onMouseMove={(e) => move(e)}

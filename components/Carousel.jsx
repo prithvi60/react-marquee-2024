@@ -1,5 +1,11 @@
 "use client";
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, {
+  useRef,
+  useState,
+  useMemo,
+  useLayoutEffect,
+  useEffect,
+} from "react";
 import Card from "./Card";
 
 const lists = [
@@ -15,113 +21,148 @@ const lists = [
     title: "Hello WebWorld3",
     desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
   },
+  {
+    title: "Hello WebWorld 4",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
+  },
+  {
+    title: "Hello WebWorld 5",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
+  },
+  {
+    title: "Hello WebWorld 6",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
+  },
+  {
+    title: "Hello WebWorld 7",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
+  },
+  {
+    title: "Hello WebWorld 8",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
+  },
+  {
+    title: "Hello WebWorld 9",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore exercitationem quisquam nemo laborum, accusamus consequuntur optio.",
+  },
 ];
 
 // Elements prop: We take array of the elements from the user
-const Carousel = ({ rtl = false, elements = lists, autofill = true }) => {
+const Carousel = ({
+  rtl = false,
+  elements = lists,
+  autofill = true,
+  children,
+}) => {
   const duplicates = useMemo(() => {
     return autofill && elements.length <= 8 ? CloneList(elements) : elements;
   }, [elements, autofill]);
 
   const [mouseDownState, setMouseDownState] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const containerRef = useRef();
-  const childRef = useRef();
+  const [cardWidth, setCardWidth] = useState(0);
+  const [startScrollLeft, setStartScrollLeft] = useState(0);
+  const containerRef = useRef(null);
+  const childRef = useRef(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  // console.log(duplicates[duplicates.length - 1]);
+  // here, we are getting each card width size using layoutEffect
+  useLayoutEffect(() => {
+    if (childRef.current) {
+      const width = childRef.current.clientWidth;
+      setCardWidth(width);
+    }
+  }, []);
 
-  useEffect(() => {
-    const slider = containerRef.current;
-    // console.log(slider.scrollX);
-    // const child = childRef.current;
-    const width = slider.scrollWidth;
-    // const width2 = slider.clientWidth;
-    // console.log(width2);
-    // const scrollPos = slider.scrollLeft;
-    console.log(width);
-    const startDragging = (e) => {
-      setMouseDownState(true);
-      setStartX(e.pageX);
-      setScrollLeft(slider.scrollLeft);
-    };
-    // console.log(startX);
-    const stopDragging = (e) => {
-      setMouseDownState(false);
-    };
+  // console.log(containerRef.current);
 
-    const move = (e) => {
-      e.preventDefault();
+  // MouseDown event was used to collect client X value and stored in the startX state
+  const startDragging = (e) => {
+    setMouseDownState(true);
+    setStartX((prev) => e.clientX);
+    setStartScrollLeft((prev) => containerRef.current.scrollLeft);
+  };
 
-      if (!mouseDownState) {
-        return;
-      }
-      const x = e.pageX; // container returns the X (horizontal) coordinate
-      const scroll = (x - startX) * 8; // to scroll fast smooth effect will get, when we multiple the getting value
-      slider.scrollLeft = scrollLeft - scroll;
-      // if (scrollLeft >= width) {
-      //   slider.scrollLeft = 0; // Reset scroll to the beginning
-      // } else if (scrollLeft < 0) {
-      //   slider.scrollLeft = width;  // Reset scroll to the end
-      // }
+  const move = (e) => {
+    e.preventDefault();
+    //
+    if (!mouseDownState) {
+      return;
+    }
+    const x = e.pageX - containerRef.current.offsetLeft; // container returns the X (horizontal) coordinate
+    const scroll = (x - startX) * 1.25;
+    containerRef.current.scrollLeft = startScrollLeft - scroll; //  scrollLeft value directly applied while mouseMove events occur
+  };
 
-      // console.log(scroll >= width2);
-      if (scrollLeft - scroll >= width) {
-        // console.log("logged");
-        // slider.scrollTo(0, scrollLeft - scroll);
-        slider.scrollLeft = 0;
-      } else if (scrollLeft - scroll < 0) {
-        // console.log("logged negative");
-        // slider.scrollTo(0, width);
-        slider.scrollLeft = width;
-      }
-    };
+  const infiniteScroll = (e) => {
+    const containerWidth = containerRef.current.clientWidth;
+    const scrollbarWidth = containerRef.current.scrollWidth;
 
-    // Add the event listeners
-    slider.addEventListener("mousemove", move, false);
-    slider.addEventListener("mousedown", startDragging, false);
-    slider.addEventListener("mouseup", stopDragging, false);
-    slider.addEventListener("mouseleave", stopDragging, false);
-    // slider.addEventListener("mouse", (e) => {
-    //   console.log(e.offsetX);
-    // });
-    return () => {
-      slider.removeEventListener("mousemove", move, false);
-      slider.removeEventListener("mousedown", startDragging, false);
-      slider.removeEventListener("mouseup", stopDragging, false);
-      slider.removeEventListener("mouseleave", stopDragging, false);
-      // slider.removeEventListener("mouse", (e) => {
-      //   console.log(e.offsetX);
-      // });
-    };
-  }, [mouseDownState, startX, scrollLeft]);
+    if (containerRef.current.scrollLeft === 0) {
+      // if the scroll is at the beginning,scroll to the end
+      containerRef.current.scrollLeft = scrollbarWidth - 2 * containerWidth;
+      // console.log("left end");
+    } else if (
+      containerRef.current.scrollLeft ===
+      scrollbarWidth - containerWidth
+    ) {
+      // if the scroll is at the end,scroll to the beginning
+      containerRef.current.scrollLeft = containerWidth;
+      // console.log("right end");
+    }
+  };
+
+  // const animate = () => {
+  //   const scrollbarWidth = containerRef.current.scrollWidth;
+  //   console.log(scrollbarWidth);
+  //   setScrollPosition(scrollPosition - 1);
+  //   if (scrollPosition <= -scrollbarWidth) {
+  //     setScrollPosition(0);
+  //   }
+  //   requestAnimationFrame(animate);
+  // };
+
+  // useEffect(() => {
+  //   animate();
+  // });
 
   return (
     <section className="flex items-center justify-center w-full h-screen">
       <div
-        className={`flex w-full p-5 gap-3.5 border-2 group overflow-x-auto transition-all duration-100 ease-linear scroll-smooth ${
-          mouseDownState ? "cursor-grabbing" : "cursor-pointer"
+        className={`flex w-full p-5 gap-3.5 border-2 group snap-x snap-mandatory overflow-x-auto custom  ${
+          mouseDownState
+            ? "cursor-grabbing scroll-smooth transition-transform duration-500 ease-linear"
+            : "cursor-pointer scroll-auto"
         }`}
+        onMouseDown={(e) => startDragging(e)}
+        onMouseMove={(e) => move(e)}
+        onMouseLeave={() => setMouseDownState(false)}
+        onMouseUp={() => setMouseDownState(false)}
+        onScroll={(e) => infiniteScroll(e)}
         ref={containerRef}
       >
         <div
-          className={`flex items-center gap-3.5 select-none group-hover:paused `}
+          className={`flex snap-start items-center gap-3.5 select-none group-hover:paused transition-transform duration-500 ease-linear`}
           // ref={childRef}
+          style={{ transform: `translateX(${scrollPosition}px)` }}
         >
           {/* group-hover:paused ${
             rtl ? "animate-rtl_carousel" : "animate-horizontal_carousel"
           } */}
-          {duplicates.map((list, idx) => (
+          {/* {duplicates.map((list, idx) => (
             <Card key={idx} list={list} childRef={childRef} />
-          ))}
+          ))} */}
+          {children}
         </div>
         <div
-          className={`flex items-center gap-3.5 select-none group-hover:paused `}
+          className={`flex snap-start items-center gap-3.5 select-none group-hover:paused transition-transform duration-500 ease-linear`}
           aria-hidden="true"
+          style={{ transform: `translateX(${scrollPosition}px)` }}
         >
-          {duplicates.map((list, idx) => (
+          {/* {duplicates.map((list, idx) => (
             <Card key={`hidden-${idx}`} list={list} childRef={childRef} />
-          ))}
+          ))} */}
+          {children}
         </div>
       </div>
     </section>

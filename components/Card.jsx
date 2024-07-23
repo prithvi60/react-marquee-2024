@@ -1,8 +1,8 @@
-const Card = ({ list, childRef }) => {
+const Card = ({ list }) => {
   return (
     <div
       className={`block w-full overflow-hidden border shadow-md rounded-xl min-w-72 max-w-none box snap-center`}
-      ref={childRef}
+      // ref={childRef}
     >
       <h4 className="text-lg font-semibold text-white bg-black border-b-2 border-blue-400 p-2.5">
         {list.title}
