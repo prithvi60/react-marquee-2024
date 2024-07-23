@@ -1,13 +1,9 @@
-import Carousel from "@/components/Carousel";
-import Component1 from "@/components/Component1";
-import MultiSlider from "@/components/MultiSlider";
+import Example from "@/components/Example";
 
 export default function Home() {
   return (
     <main>
-      {/* <Carousel /> */}
-      <Component1 />
-      {/* <MultiSlider/> */}
+      <Example />
     </main>
   );
 }

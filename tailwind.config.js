@@ -8,21 +8,14 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        vertical_carousel: "marquee_v 20s linear infinite",
-        horizontal_carousel: "marquee_h 20s linear infinite",
-        rtl_carousel: "marquee_h 20s linear infinite reverse",
+        marquee: "marquee_h 20s linear infinite",
       },
       keyframes: {
-        marquee_v: {
-          from: { transform: "translateY(0%)" },
-          to: { transform: "translateY(-100%)" },
-        },
         marquee_h: {
-          from: { transform: "translateX(-20%)" },
-          to: { transform: "translateX(calc(-80% - 0.875rem))" },
+          from: { transform: "translateX(0%)" },
+          to: { transform: "translateX(-100%)" },
         },
       },
     },
   },
-  plugins: [],
 };
