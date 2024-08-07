@@ -1,6 +1,6 @@
 {
-  "name": "@webibee/react-marquee",
-  "version": "0.0.5",
+  "name": "@webibee/react-marquee-2024",
+  "version": "0.0.1",
   "description": "this one is trailer version react-marquee library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

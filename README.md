@@ -1,5 +1,5 @@
 
-# @webibee/react-marquee
+# @webibee/react-marquee-2024
 
 A React component library for creating smooth, customizable marquee effects.
 
@@ -9,13 +9,13 @@ A React component library for creating smooth, customizable marquee effects.
 You can install react-marquee-2024 via npm or yarn.
 
 ```bash
-  npm install @webibee/react-marquee
+  npm install @webibee/react-marquee-2024
 ```
 
 or
 
 ```bash
-  yarn add @webibee/react-marquee
+  yarn add @webibee/react-marquee-2024
 ```
 ## Usage/Examples
 
@@ -23,7 +23,7 @@ Here's a basic example of how to use the marquee component in your React project
 
 ```javascript
 import React from 'react';
-import {Marquee} from '@webibee/react-marquee';
+import {Marquee} from '@webibee/react-marquee-2024';
 
 function App() {
   return (
