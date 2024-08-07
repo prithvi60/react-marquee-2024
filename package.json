@@ -1,22 +1,68 @@
 {
-  "name": "carousel",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@webibee/react-marquee",
+  "version": "0.0.5",
+  "description": "this one is trailer version react-marquee library",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "rollup -c --watch --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs"
   },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.5"
+  "keywords": [
+    "react",
+    "marquee",
+    "slider",
+    "card",
+    "carousel",
+    "autoPlay"
+  ],
+  "author": "webibee",
+  "license": "MIT",
+  "babel": {
+    "sourceType": "unambiguous",
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript",
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GOGA-23/react-marquee.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GOGA-23/react-marquee/issues"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.14.12",
+    "@types/react": "^18.3.3",
+    "@types/rollup-plugin-peer-deps-external": "^2.2.5",
+    "autoprefixer": "^10.4.19",
+    "globals": "^15.8.0",
+    "postcss": "^8.4.39",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rollup": "^4.19.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tailwindcss": "^3.4.6",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
   }
 }
