@@ -14,10 +14,33 @@ const Marquee = ({
   children,
 }) => {
   const containerRef = useRef(null);
+  const containerRef2 = useRef(null);
 
   const [mouseDown, setMouseDown] = useState(false);
   const [clientX, setClientX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const marqueeElement = containerRef.current;
+    const totalWidth = marqueeElement.scrollWidth;
+    const visibleWidth = marqueeElement.clientWidth;
+    const cardWidth = containerRef2?.current?.children[0]?.offsetWidth;
+    if (mouseDown === false) {
+      const animate = () => {
+        setScrollPosition((prevPosition) => {
+          if (prevPosition >= totalWidth - (visibleWidth + cardWidth)) {
+            return 0;
+          }
+          return prevPosition + 1;
+        });
+      };
+
+      const intervalId = setInterval(animate, 5);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [mouseDown]);
 
   const styles = useMemo(
     () =>
@@ -64,7 +87,12 @@ const Marquee = ({
 
   const renderMarquee = (isHidden) => (
     <div
-      className="animate-marquee flex snap-start items-center gap-3.5 select-none group-hover:paused transition-transform duration-500 ease-linear"
+      style={{
+        transform: `translateX(-${scrollPosition}px)`,
+      }}
+      ref={containerRef2}
+      data-testid="containerId2"
+      className="flex snap-start items-center gap-3.5 select-none transition-transform duration-300 ease-linear scroll-auto"
       aria-hidden={isHidden}
     >
       {children}
@@ -72,9 +100,12 @@ const Marquee = ({
   );
 
   return (
+    <>
+    <h2 data-testid="test2" className={"text-2xl font-bold text-center w-full hidden"}>Marquee Library</h2>
     <div
       ref={containerRef}
       className={styles}
+      data-testid="containerId"
       // functional events
       onScroll={(e) => handleInfiniteScroll(e)}
       onMouseDown={(e) => handleDrag(e)}
@@ -85,6 +116,7 @@ const Marquee = ({
       {renderMarquee(false)}
       {renderMarquee(true)}
     </div>
+    </>
   );
 };
 
