@@ -107,7 +107,7 @@ const Marquee: React.FC<MarqueeProps> = ({
 
   return (
     <>
-      <h2 data-testid="test2" className={"text-2xl font-bold text-center w-full hidden"}>Marquee Library</h2>
+      <h3 data-testid="test2" className={"text-2xl font-bold text-center w-full hidden"}>Marquee Library</h3>
       <div
         ref={containerRef}
         className={styles}

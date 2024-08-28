@@ -42,14 +42,16 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "components/Example.jsx", "next.config.mjs"  ],
+    "**/*.tsx","src/**/*"  ],
   "exclude": [
     "node_modules"
   ]

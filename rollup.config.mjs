@@ -13,7 +13,7 @@ import packageJson from "./package.json" assert { type: "json" };
 
 export default [
   {
-    input: "app/index.ts",
+    input: "src/index.ts",
     output: [
       {
         file: packageJson.main,

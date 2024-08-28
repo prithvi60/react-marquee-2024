@@ -1,7 +1,10 @@
 import "@testing-library/jest-dom";
-import { screen, render, fireEvent, waitFor } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
+import { axe, toHaveNoViolations } from 'jest-axe';
 import React from 'react';
 import Marquee from "../components/Marquee";
+
+expect.extend(toHaveNoViolations)
 
 // Helper to mock containerRef
 const mockContainerRef = () => ({
@@ -395,6 +398,31 @@ describe("Marquee Test Cards", () => {
         })
 
 
+    })
+
+
+    describe("accessibility testing", () => {
+        it('the form is accessible', async () => {
+            render(<Marquee>
+                {lists.map((list, idx) => (
+                    <div
+                        key={idx}
+                        data-testid="test"
+                        className={`block w-full overflow-hidden border shadow-md rounded-xl min-w-72 max-w-none box snap-center`}
+                    >
+                        <h4 data-testid="title" className="text-lg font-semibold text-white bg-black border-b-2 border-blue-400 p-2.5">
+                            {list.title}
+                        </h4>
+                        <p data-testid="desc" className="p-2.5 text-base text-white bg-blue-900 line-clamp-3 md:line-clamp-none">
+                            {list.desc}
+                        </p>
+                    </div>
+                ))}
+            </Marquee>)
+            const container = screen.getByTestId("containerId")
+            const results = await axe(container)
+            expect(results).toHaveNoViolations()
+        })
     })
 
 })
