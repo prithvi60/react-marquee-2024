@@ -7,13 +7,13 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import tailwindcss from "tailwindcss";
 import postcss from "rollup-plugin-postcss";
 
-const tailwindConfig = require("./tailwind.config.js")
+const tailwindConfig = require("./tailwind.config.js");
 
 import packageJson from "./package.json" assert { type: "json" };
 
 export default [
   {
-    input: "src/index.ts",
+    input: "app/index.ts",
     output: [
       {
         file: packageJson.main,
@@ -34,7 +34,7 @@ export default [
       terser(),
       postcss({
         config: {
-          path: './postcss.config.cjs',
+          path: "./postcss.config.cjs",
         },
         extensions: [".css"],
         minimize: true,
