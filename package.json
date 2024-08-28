@@ -9,10 +9,13 @@
     "dist"
   ],
   "scripts": {
+    "start": "next start",
     "dev": "next dev",
-    "build": "rollup -c --bundleConfigAsCjs",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
+    "build": "next build",
+    "rollup_build": "rollup -c --bundleConfigAsCjs",
+    "jest-test:watch": "jest --watchAll",
+    "test:e2e": "playwright test",
+    "test-ui": "playwright test --ui"
   },
   "keywords": [
     "react",
@@ -43,6 +46,7 @@
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
+    "@playwright/test": "^1.46.1",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",

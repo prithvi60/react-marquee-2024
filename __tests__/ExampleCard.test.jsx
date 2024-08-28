@@ -297,7 +297,7 @@ describe("Marquee Test Cards", () => {
     })
 
     describe("Test Animation Behavior", () => {
-        
+
         // it("animates correctly while initial render", async () => {
 
         //     render(<Marquee>
@@ -321,7 +321,7 @@ describe("Marquee Test Cards", () => {
 
         //     expect(container.style.transform).toBe('translateX(-0px)')
 
-        //     await waitFor(() => { expect(container.style.transform).not.toBe('translateX(-0px)') })
+        //     await waitFor(() => { expect(container.style.transform).not.toBe('translateX(-0x)') })
         // })
 
         // it('stops animation on mouse down', async () => {

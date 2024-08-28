@@ -1,3 +1,7 @@
 node_modules/
 dist
 webibee-react-marquee-0.0.1.tgz
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
