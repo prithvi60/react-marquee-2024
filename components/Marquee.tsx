@@ -19,35 +19,35 @@ const Marquee: React.FC<MarqueeProps> = ({
   const [scrollLeft, setScrollLeft] = useState(0);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  useEffect(() => {
-    const marqueeElement = containerRef.current;
-    if (!marqueeElement) return;
+  // useEffect(() => {
+  //   const marqueeElement = containerRef.current;
+  //   if (!marqueeElement) return;
 
-    const totalWidth = marqueeElement.scrollWidth;
-    const visibleWidth = marqueeElement.clientWidth;
-    const cardWidth = containerRef2.current?.children[0]?.scrollWidth || 0;
+  //   const totalWidth = marqueeElement.scrollWidth;
+  //   const visibleWidth = marqueeElement.clientWidth;
+  //   const cardWidth = containerRef2.current?.children[0]?.scrollWidth || 0;
 
-    if (mouseDown) {
-      // If mouseDown is true, we don't set up the animation
-      return;
-    }
+  //   if (mouseDown) {
+  //     // If mouseDown is true, we don't set up the animation
+  //     return;
+  //   }
 
-    const animate = () => {
-      setScrollPosition((prevPosition) => {
-        if (prevPosition >= totalWidth - (visibleWidth + cardWidth)) {
-          return 0;
-        }
-        return prevPosition + 1;
-      });
-    };
+  //   const animate = () => {
+  //     setScrollPosition((prevPosition) => {
+  //       if (prevPosition >= totalWidth - (visibleWidth + cardWidth)) {
+  //         return 0;
+  //       }
+  //       return prevPosition + 1;
+  //     });
+  //   };
 
-    const intervalId = setInterval(animate, 5);
+  //   const intervalId = setInterval(animate, 5);
 
-    // Cleanup function
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [mouseDown]);
+  //   // Cleanup function
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [mouseDown]);
 
   // Memoized styles
   const styles = useMemo(

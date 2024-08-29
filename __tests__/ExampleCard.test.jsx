@@ -402,7 +402,7 @@ describe("Marquee Test Cards", () => {
 
 
     describe("accessibility testing", () => {
-        it('the form is accessible', async () => {
+        it('checking this marquee component is accessible', async () => {
             render(<Marquee>
                 {lists.map((list, idx) => (
                     <div
